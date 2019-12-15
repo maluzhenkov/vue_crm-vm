@@ -13,10 +13,16 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchCurrency() {
-      const key = process.env.VUE_APP_FIXER;
-      return await fetch(
-        `http://data.fixer.io/api/latest?access_key=${key}&symbols=USD,EUR,RUB`
-      ).then(res => res.json());
+      const key = process.env.VUE_APP_CURRATE;
+      // return await fetch(
+      //   `https://currate.ru/api/?get=rates&pairs=USDRUB,EURRUB&key=${key}`,
+      //   { mode: "no-cors" }
+      // ).then(res => res.json());
+      return {
+        status: 200,
+        message: "rates",
+        data: { USDRUB: "62.8431", EURRUB: "69.8815", RUBRUB: "1" }
+      };
     }
   },
   mutations: {

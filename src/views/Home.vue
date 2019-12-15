@@ -16,9 +16,9 @@
     <Loader v-if="loading" />
 
     <div v-else class="row">
-      <Bill :rates="currency.rates" />
+      <Bill :rates="currency.data" />
 
-      <Currency :rates="currency.rates" :date="new Date(currency.date)" />
+      <Currency :rates="currency.data" :date="new Date()" />
     </div>
   </div>
 </template>

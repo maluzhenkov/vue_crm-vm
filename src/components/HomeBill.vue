@@ -4,7 +4,7 @@
       <div class="card-content white-text">
         <span class="card-title">{{ "Acc_Currency" | localize }}</span>
         <p v-for="cur in currencies" :key="cur" class="currency-line">
-          <span>{{ getCurrency(cur) | currency(cur) }}</span>
+          <span>{{ getCurrency(cur) | currency(cur.slice(0, 3)) }}</span>
         </p>
       </div>
     </div>
@@ -15,18 +15,16 @@
 export default {
   props: ["rates"],
   data: () => ({
-    currencies: ["RUB", "USD", "EUR"]
+    currencies: ["RUBRUB", "USDRUB", "EURRUB"]
   }),
   computed: {
-    base() {
-      return (
-        this.$store.getters.info.bill / (this.rates["RUB"] / this.rates["EUR"])
-      );
+    bill() {
+      return this.$store.getters.info.bill;
     }
   },
   methods: {
     getCurrency(currency) {
-      return Math.floor(this.base * this.rates[currency]);
+      return Math.floor(this.bill / +this.rates[currency]);
     }
   }
 };
