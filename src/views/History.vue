@@ -3,7 +3,9 @@
     <div class="page-title">
       <h3>{{ "Record_History" | localize }}</h3>
     </div>
-
+    <div class="history-chart">
+      <canvas ref="canvas"></canvas>
+    </div>
     <Loader v-if="loading" />
 
     <p v-else-if="!records.length" class="center">
@@ -12,10 +14,6 @@
     </p>
 
     <section v-else>
-      <div class="history-chart">
-        <canvas ref="canvas"></canvas>
-      </div>
-
       <Table :records="items" :className="'history'" />
 
       <Paginate
@@ -104,8 +102,7 @@ export default {
   async mounted() {
     this.records = await this.$store.dispatch("fetchRecords");
     const categories = await this.$store.dispatch("fetchCategories");
-
-    if (!categories) {
+    if (categories) {
       this.setup(categories);
     }
 
